@@ -6,13 +6,13 @@ that you must put in the sd to be loaded with the cfw
 this will replace the Nintendo switch logo with a custom one<br>
 [Downloads](https://github.com/StarDustCFW/Logo-para-switch.Palomitas/releases)
 
+<a href="https://github.com/StarDustCFW/Logo-para-switch.Palomitas/releases"><img src="temp.png" alt="Discord Server" /></a>
 
-
-* Original idea
+### Original idea
 ToDo
 
-* Credits
-D3fau4
-Kronos2308
-...
-ToDo
+### Credits
+* D3fau4
+* Kronos2308
+* ...
+* ToDo
