@@ -8,8 +8,11 @@ this will replace the Nintendo switch logo with a custom one<br>
 
 
 
-## Original idea
-todo
+* Original idea
+ToDo
 
-## Credits 
-todo
+* Credits
+D3fau4
+Kronos2308
+...
+ToDo
