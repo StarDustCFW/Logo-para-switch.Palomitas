@@ -27,7 +27,7 @@ color 07
 :loop
 cls
 echo - %msg% -
-set cou=0
+set /a cou=0
 for /f "delims= " %%i in ('tasklist /fi "imagename eq pito.exe"') do (
 if /i "%%i" equ "pito.exe" set /a cou+=1
 set e=%%i)
