@@ -1,7 +1,7 @@
 @echo off
 rem By Kronos2308
 mode con:lines=13 cols=65
-title Logo para switch by D3fau4 y Kronos2308 -.- v1.2
+title Logo para switch by D3fau4 y Kronos2308 -.- v0.2
 rmdir ips /s/q>nul
 mkdir ips>nul
 cls
