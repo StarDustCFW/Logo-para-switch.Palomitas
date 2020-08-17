@@ -1,0 +1,101 @@
+<html>
+<HEAD>
+<HTA:APPLICATION ID="oHTA"
+     APPLICATIONNAME="myApp"
+     BORDER="thin"
+     BORDERSTYLE="normal"
+     CAPTION="yes"
+     ICON="icon.ico"
+	 SCROLL="no"
+     MAXIMIZEBUTTON="yes"
+     MINIMIZEBUTTON="yes"
+     SHOWINTASKBAR="yes"
+     SINGLEINSTANCE="yes"
+     SYSMENU="yes"
+     VERSION="1.0"
+	 CONTEXTMENU="no"
+     WINDOWSTATE="normal"/>  
+<SCRIPT Language="VBScript">
+Sub Window_onLoad
+    window.resizeTo 460 , 260 
+End Sub
+Sub SelectFile
+    pngFile.value = ""
+    strStartPath = ""
+    strFilter = "Image (*.png;*.apng)|*.png;*.apng|All Files (*.*)|*.*|"
+    strCaption = "Select a File"
+    pngFile.value = Dlg.openfiledlg(CStr(strStartPath), , CStr(strFilter), CStr(strCaption))
+	prev.src=pngFile.value
+End Sub
+Sub Process
+    Dim x: Set x = CreateObject("Scripting.FileSystemObject")
+    'Get file path from INPUT
+    Dim file: file = pngFile.Value
+	//hide and show buttons
+	logs.style.display= "table"
+	comenz.style.display= "none"
+	brow.style.display= "none"
+	pngFile.style.display= "none"
+	
+    Set objShell = CreateObject("Wscript.Shell")
+	If x.FolderExists("ips") Then 
+	x.DeleteFolder "ips"
+	End If
+	
+    objShell.Run "cmd /c mkdir ips\atmosphere\exefs_patches\logo",0,true
+    objShell.Run "cmd /c mkdir ips\sxos\exefs_patches\logo",0,true
+	
+	logs.Value= "Creando ips 1.x.x"
+    objShell.Run "pito.exe AAA\1.x.x "& file,0,true
+	logs.Value= "Creando ips 2.x.x"
+    objShell.Run "pito.exe AAA\2.x.x "& file,0,true
+	logs.Value= "Creando ips 2.3.x"
+    objShell.Run "pito.exe AAA\2.3.x "& file,0,true
+	logs.Value= "Creando ips 3.x.x"
+    objShell.Run "pito.exe AAA\3.x.x "& file,0,true
+	logs.Value= "Creando ips 4.x.x"
+    objShell.Run "pito.exe AAA\4.x.x "& file,0,true
+	logs.Value= "Creando ips 5.x.x"
+    objShell.Run "pito.exe AAA\5.x.x "& file,0,true
+	logs.Value= "Creando ips 6.x.x"
+    objShell.Run "pito.exe AAA\6.x.x "& file,0,true
+	logs.Value= "Creando ips 7.x.x"
+    objShell.Run "pito.exe AAA\7.x.x "& file,0,true
+	logs.Value= "Creando ips 8.x.x"
+    objShell.Run "pito.exe AAA\8.x.x "& file,0,true
+	logs.Value= "Creando ips 9.x.x"
+    objShell.Run "pito.exe AAA\9.x.x "& file,0,true
+	logs.Value= "Creando ips 10.x.x"
+    objShell.Run "pito.exe AAA\10.x.x "& file,0,true
+
+	x.CopyFile "ips\*.ips", "ips\atmosphere\exefs_patches\logo\",true
+	x.MoveFile "ips\*.ips", "ips\sxos\exefs_patches\logo\"
+   	logs.Value= "Terminado"
+	MsgBox "Termine con  "& file &", revisa IPS",64,"Terminado"
+	objShell.Run "cmd /c explorer ips",0,true
+	//hide and show buttons
+	logs.style.display= "none"
+	comenz.style.display= "table"
+	brow.style.display= "table"
+	pngFile.style.display= "table"
+    Set x = Nothing
+End Sub
+</SCRIPT>
+</HEAD>
+<body style="background-color: gray; color: black;text-align: center;" id="body">
+<title>Logo para Switch by D3fau4 & Kronos2308 -.- v1.0</title>
+<p style="background-color: white">
+PNG To IPS Logo Creator 1.0.0-10.1.0<br>
+Give me the logo<br>
+Dame el logo<br>
+"PNG" "308x350" "RGBA"<br>
+</p>
+<input type="text" name="pngFile" Value="temp.png" size="40">
+<input type="button" name="brow" onClick="SelectFile" value="Browse..."><br><br>
+<img name="prev" src="temp.png" alt="none" style="width:40px;height:45px;"> 
+<input style="background-color: black; border: 2px solid white; padding: 10px 15px;	color: white;	font-size: 14px;" type="button" name="comenz" onClick="Process" value="Convertir">
+<input type="text" name="logs" style="display: none" size="30">
+
+<OBJECT id=Dlg classid="CLSID:3050F4E1-98B5-11CF-BB82-00AA00BDCE0B" width=0 height=0>
+</body>
+</html>
