@@ -14,5 +14,6 @@ this will replace the Nintendo switch logo with a custom one<br>
 ### Credits
 * D3fau4
 * Kronos2308
+* [friedkeenan](https://github.com/friedkeenan/switch-logo-patcher)
 * ...
 * ToDo
