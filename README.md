@@ -8,12 +8,9 @@ this will replace the Nintendo switch logo with a custom one<br>
 
 <a href="https://discord.gg/HcCBBYa"><img src="img/image.gif" alt="Discord Server" /></a>
 
-### Original idea
-* ToDo
-
 ### Credits
-* D3fau4
-* Kronos2308
 * [friedkeenan](https://github.com/friedkeenan/switch-logo-patcher)
+* [D3fau4](https://github.com/D3fau4)
+* Kronos2308
 * ...
 * ToDo
