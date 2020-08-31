@@ -44,28 +44,28 @@ Sub Process
     objShell.Run "cmd /c mkdir ips\atmosphere\exefs_patches\logo",0,true
     objShell.Run "cmd /c mkdir ips\sxos\exefs_patches\logo",0,true
 	
-	logs.Value= "Creando ips 1.x.x"
-    objShell.Run "pito.exe AAA\1.x.x "& file,0,true
-	logs.Value= "Creando ips 2.x.x"
-    objShell.Run "pito.exe AAA\2.x.x "& file,0,true
-	logs.Value= "Creando ips 2.3.x"
-    objShell.Run "pito.exe AAA\2.3.x "& file,0,true
-	logs.Value= "Creando ips 3.x.x"
-    objShell.Run "pito.exe AAA\3.x.x "& file,0,true
-	logs.Value= "Creando ips 4.x.x"
-    objShell.Run "pito.exe AAA\4.x.x "& file,0,true
-	logs.Value= "Creando ips 5.x.x"
-    objShell.Run "pito.exe AAA\5.x.x "& file,0,true
-	logs.Value= "Creando ips 6.x.x"
-    objShell.Run "pito.exe AAA\6.x.x "& file,0,true
-	logs.Value= "Creando ips 7.x.x"
-    objShell.Run "pito.exe AAA\7.x.x "& file,0,true
-	logs.Value= "Creando ips 8.x.x"
-    objShell.Run "pito.exe AAA\8.x.x "& file,0,true
-	logs.Value= "Creando ips 9.x.x"
-    objShell.Run "pito.exe AAA\9.x.x "& file,0,true
-	logs.Value= "Creando ips 10.x.x"
+	logs.Value= "Creando ips para 10.x.x"
     objShell.Run "pito.exe AAA\10.x.x "& file,0,true
+	logs.Value= "Creando ips para 9.x.x"
+    objShell.Run "pito.exe AAA\9.x.x "& file,0,true
+	logs.Value= "Creando ips para 8.x.x"
+    objShell.Run "pito.exe AAA\8.x.x "& file,0,true
+	logs.Value= "Creando ips para 7.x.x"
+    objShell.Run "pito.exe AAA\7.x.x "& file,0,true
+	logs.Value= "Creando ips para 6.x.x"
+    objShell.Run "pito.exe AAA\6.x.x "& file,0,true
+	logs.Value= "Creando ips para 5.x.x"
+    objShell.Run "pito.exe AAA\5.x.x "& file,0,true
+	logs.Value= "Creando ips para 4.x.x"
+    objShell.Run "pito.exe AAA\4.x.x "& file,0,true
+	logs.Value= "Creando ips para 3.x.x"
+    objShell.Run "pito.exe AAA\3.x.x "& file,0,true
+	logs.Value= "Creando ips para 2.3.x"
+    objShell.Run "pito.exe AAA\2.3.x "& file,0,true
+	logs.Value= "Creando ips para 2.x.x"
+    objShell.Run "pito.exe AAA\2.x.x "& file,0,true
+	logs.Value= "Creando ips para 1.x.x"
+    objShell.Run "pito.exe AAA\1.x.x "& file,0,true
 
 	objShell.Run "cmd /c xcopy /Y/I ips\*.ips ips\atmosphere\exefs_patches\logo\",0,true	
 	objShell.Run "cmd /c move /y ips\*.ips ips\sxos\exefs_patches\logo\",0,true	
