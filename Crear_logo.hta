@@ -12,13 +12,14 @@
      SHOWINTASKBAR="yes"
      SINGLEINSTANCE="yes"
      SYSMENU="yes"
-     VERSION="1.0"
+     VERSION="1.1"
 	 CONTEXTMENU="no"
      WINDOWSTATE="normal"/>  
 <SCRIPT Language="VBScript">
 Sub Window_onLoad
     window.resizeTo 460 , 260 
 End Sub
+
 Sub SelectFile
     pngFile.value = ""
     strStartPath = ""
@@ -27,21 +28,19 @@ Sub SelectFile
     pngFile.value = Dlg.openfiledlg(CStr(strStartPath), , CStr(strFilter), CStr(strCaption))
 	prev.src=pngFile.value
 End Sub
+
 Sub Process
-    Dim x: Set x = CreateObject("Scripting.FileSystemObject")
     'Get file path from INPUT
     Dim file: file = pngFile.Value
-	//hide and show buttons
+	
+	'hide and show buttons
 	logs.style.display= "table"
 	comenz.style.display= "none"
 	brow.style.display= "none"
 	pngFile.style.display= "none"
 	
     Set objShell = CreateObject("Wscript.Shell")
-	If x.FolderExists("ips") Then 
-	x.DeleteFolder "ips"
-	End If
-	
+	objShell.Run "cmd /c rmdir ips /s/q",0,true	
     objShell.Run "cmd /c mkdir ips\atmosphere\exefs_patches\logo",0,true
     objShell.Run "cmd /c mkdir ips\sxos\exefs_patches\logo",0,true
 	
@@ -68,22 +67,23 @@ Sub Process
 	logs.Value= "Creando ips 10.x.x"
     objShell.Run "pito.exe AAA\10.x.x "& file,0,true
 
-	x.CopyFile "ips\*.ips", "ips\atmosphere\exefs_patches\logo\",true
-	x.MoveFile "ips\*.ips", "ips\sxos\exefs_patches\logo\"
+	objShell.Run "cmd /c xcopy /Y/I ips\*.ips ips\atmosphere\exefs_patches\logo\",0,true	
+	objShell.Run "cmd /c move /y ips\*.ips ips\sxos\exefs_patches\logo\",0,true	
+
    	logs.Value= "Terminado"
-	MsgBox "Termine con  "& file &", revisa IPS",64,"Terminado"
+	objShell.PopUp "Termine con  "& file &", revisa IPS",8,"Terminado",64
 	objShell.Run "cmd /c explorer ips",0,true
-	//hide and show buttons
+	
+	'hide and show buttons
 	logs.style.display= "none"
 	comenz.style.display= "table"
 	brow.style.display= "table"
 	pngFile.style.display= "table"
-    Set x = Nothing
 End Sub
 </SCRIPT>
 </HEAD>
 <body style="background-color: gray; color: black;text-align: center;" id="body">
-<title>Logo para Switch by D3fau4 & Kronos2308 -.- v1.0</title>
+<title>Logo para Switch by D3fau4 & Kronos2308 -.- v1.1</title>
 <p style="background-color: white">
 PNG To IPS Logo Creator 1.0.0-10.1.0<br>
 Give me the logo<br>
