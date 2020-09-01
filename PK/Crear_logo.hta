@@ -7,7 +7,7 @@
      CAPTION="yes"
      ICON="icon.ico"
 	 SCROLL="no"
-     MAXIMIZEBUTTON="yes"
+     MAXIMIZEBUTTON="no"
      MINIMIZEBUTTON="yes"
      SHOWINTASKBAR="yes"
      SINGLEINSTANCE="yes"
@@ -18,7 +18,7 @@
 <SCRIPT Language="VBScript">
 Sub Window_onLoad
 On Error Resume Next
-    window.resizeTo 460 , 260
+    window.resizeTo 460 , 290
 	
 	Set objFSO = CreateObject("Scripting.FileSystemObject")
 	For Each objFolder In objFSO.GetFolder("AAA").SubFolders
@@ -89,20 +89,18 @@ On Error Resume Next
 End Sub
 </SCRIPT>
 </HEAD>
-<body style="background-color: gray; color: black;text-align: center;" id="body">
+<body style="background-color: #63b6eb; color: black;text-align: center;" id="body">
 <title>Logo para Switch by D3fau4 & Kronos2308 -.- v1.2</title>
-<p style="background-color: white">
+<p style="background-color: #a5cbf0">
 PNG To IPS Logo Creator 1.0.0-10.1.0<br>
-Dame el logo<br>
 "PNG" "308x350" "RGBA"<br>
 </p>
 FirmW <select name="myselect"><option value="all">Todos</option></select><br>
 <input type="text" name="pngFile" Value="temp.png" size="40">
-<input type="button" name="brow" onClick="SelectFile" value="Browse..."><br><br>
-<img name="prev" src="temp.png" alt="none" style="width:40px;height:45px;"> 
-<input style="background-color: black; border: 2px solid white; padding: 10px 15px;	color: white;	font-size: 14px;" type="button" name="comenz" onClick="Process" value="Convertir">
+<input style="background-color: #0994ed; border: 2px solid white;	color: white;" type="button" name="brow" onClick="SelectFile" value="Browse..."><br><br>
 <input type="text" name="logs" style="display: none" size="30">
-
+<img name="prev" src="temp.png" alt="none" style="width:50px; height:55px;"><br>
+<input style="background-color: #056aab; border: 2px solid white; padding: 10px 15px;	color: white;	font-size: 14px;" type="button" name="comenz" onClick="Process" value="Convertir">
 <OBJECT id=Dlg classid="CLSID:3050F4E1-98B5-11CF-BB82-00AA00BDCE0B" width=0 height=0>
 </body>
 </html>
