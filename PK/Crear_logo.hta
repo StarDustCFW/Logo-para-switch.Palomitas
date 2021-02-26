@@ -19,8 +19,10 @@
 Sub Window_onLoad
 On Error Resume Next
     window.resizeTo 460 , 290
-	
 	Set objFSO = CreateObject("Scripting.FileSystemObject")
+	Set f = objFSO.OpenTextFile("V")
+	document.title= document.title & f.ReadLine
+	
 	For Each objFolder In objFSO.GetFolder("AAA").SubFolders
 		Set opt = document.createElement("option")
 		myselect.options.add(opt)
@@ -60,11 +62,11 @@ On Error Resume Next
 	If(selects = "all") Then 
 		For Each objFolder In objFSO.GetFolder("AAA").SubFolders
 			logs.Value= "Creando ips para "+objFolder.Name
-			objShell.Run "pito.exe AAA\"+objFolder.Name+" "+file,0,true
+			objShell.Run "dist\pito\pito.exe AAA\"+objFolder.Name+" "+file,0,true
 		Next
 	else
 		logs.Value= "Creando ips para "+selects
-		objShell.Run "pito.exe AAA\"+selects+" "+ file,0,true
+		objShell.Run "dist\pito\pito.exe AAA\"+selects+" "+ file,0,true
 	End If
 
 	dim folder: set folder = objFSO.getFolder("ips")
@@ -90,7 +92,7 @@ End Sub
 </SCRIPT>
 </HEAD>
 <body style="background-color: #63b6eb; color: black;text-align: center;" id="body">
-<title>Logo para Switch by D3fau4 & Kronos2308 -.- v1.5</title>
+<title>Logo para Switch by D3fau4 & Kronos2308 -.- v</title>
 <p style="background-color: #a5cbf0">
 PNG To IPS Logo Creator 1.0.0-11.x.x<br>
 "PNG" "308x350" "RGBA"<br>

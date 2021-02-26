@@ -1,3 +1,7 @@
 
 *.exe
 PK/AAA/*
+PK/build/*
+PK/dist/*
+PK/__pycache__/*
+*.spec
