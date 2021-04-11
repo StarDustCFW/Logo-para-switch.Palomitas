@@ -1,7 +1,7 @@
 @echo off 
 set root="C:\Program Files (x86)\WinRAR\"
 cd PK
-set ver=1.6
+set ver=1.7
 echo %ver%>V
 
 title compile pito.py
