@@ -62,11 +62,11 @@ On Error Resume Next
 	If(selects = "all") Then 
 		For Each objFolder In objFSO.GetFolder("AAA").SubFolders
 			logs.Value= "Creando ips para "+objFolder.Name
-			objShell.Run "dist\pito\pito.exe AAA\"+objFolder.Name+" "+file,0,true
+			objShell.Run "dist\pito\pito.exe AAA\"+objFolder.Name+" "+Chr(34)+file+Chr(34),0,true
 		Next
 	else
 		logs.Value= "Creando ips para "+selects
-		objShell.Run "dist\pito\pito.exe AAA\"+selects+" "+ file,0,true
+		objShell.Run "dist\pito\pito.exe AAA\"+selects+" "+ Chr(34)+file+Chr(34),0,true
 	End If
 
 	dim folder: set folder = objFSO.getFolder("ips")
@@ -78,7 +78,7 @@ On Error Resume Next
 		objShell.Run "cmd /c xcopy /Y/I ips\*.ips ips\atmosphere\exefs_patches\logo\",0,true	
 		objShell.Run "cmd /c move /y ips\*.ips ips\sxos\exefs_patches\logo\",0,true	
 		logs.Value= "Terminado"
-		objShell.PopUp "Termine con  "& file &", revisa IPS",8,"Terminado",64
+		objShell.PopUp "Terminé con  "& file &", revisa IPS",8,"Terminado",64
 		objShell.Run "cmd /c explorer ips",0,true
 	End If
 	
