@@ -1,4 +1,4 @@
-# Logo-para-switch.Palomitas
+# Logo-para-switch.Palomitas 14.x.x
 Logo para switch by D3fau4 y Kronos2308 -.-<br>
 <a href="https://discord.gg/HcCBBYa"><img src="https://user-images.githubusercontent.com/36446521/126035054-dbd90bc9-54e2-47b3-a519-0c60cc8ddbd6.png" alt="Discord Server" /></a><br>
 This windows script will create multiple ips files
