@@ -7,3 +7,4 @@ PK/__pycache__/*
 *.spec
 *.rar
 *.cmd
+generator/*

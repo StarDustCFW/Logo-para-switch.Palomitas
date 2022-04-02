@@ -12,13 +12,16 @@ def exec_cmd(cmd):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Invalid arguments")
+        print("Invalid arguments 3")
         sys.exit(1)
 
     exefs_dir = Path(sys.argv[1])
     if not exefs_dir.is_dir():
-        print("Invalid arguments")
+        print("Invalid arguments 1")
         sys.exit(1)
+
+    offset_file = Path(exefs_dir,"offset")
+    build_id_file = Path(exefs_dir,"build_id")
 
     new_logo = Image.open(sys.argv[2])
     new_logo = new_logo.convert("RGBA")
@@ -30,24 +33,29 @@ if __name__ == "__main__":
 
     old_logo = old_logo.convert("RGBA")
 
-    uncomp_path = Path(exefs_dir, "main_unc")
+    #Get The Data to build ips
+    with offset_file.open("r") as f:
+        offset = int(f.read())
 
-    out = exec_cmd(f"hactool -t nso {Path(exefs_dir, 'main')} --uncompressed {uncomp_path}")
-    build_id = out.split("Build Id:", 1)[1].split("\n", 1)[0].strip()
+    with build_id_file.open("r") as f:
+        build_id = f.read()
 
-    with uncomp_path.open("rb") as f:
-        old_data = f.read()
+    print (offset)
+    print (build_id)
 
-    new_data = old_data.replace(old_logo.tobytes(), new_logo.tobytes())
-
+    #Build the patch
+    new_data =  (b'\x00' * offset) + new_logo.tobytes()
+    old_data =  (b'\x00' * offset) + old_logo.tobytes()
     patch = Patch.create(old_data, new_data)
-
+	
     if len(sys.argv) > 4:
         patch_path = Path(sys.argv[4])
     else:
         patch_path = Path("ips", f"{build_id}.ips")
-
+    #save the patch
     with patch_path.open("w+b") as f:
-        f.write(patch.encode())
-
-    os.remove(uncomp_path)
+        f.write(patch.encode())	
+	
+"""		
+"""	
+	

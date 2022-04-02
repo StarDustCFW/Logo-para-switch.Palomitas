@@ -23,7 +23,7 @@ On Error Resume Next
 	Set f = objFSO.OpenTextFile("V")
 	document.title= document.title & f.ReadLine
 	
-	For Each objFolder In objFSO.GetFolder("AAA").SubFolders
+	For Each objFolder In objFSO.GetFolder("Data").SubFolders
 		Set opt = document.createElement("option")
 		myselect.options.add(opt)
 		opt.text = objFolder.Name
@@ -67,13 +67,13 @@ On Error Resume Next
     Set objFSO = CreateObject("Scripting.FileSystemObject")
 
     If(selects = "all") Then 
-        For Each objFolder In objFSO.GetFolder("AAA").SubFolders
+        For Each objFolder In objFSO.GetFolder("Data").SubFolders
             logs.Value= "Creando ips para "+objFolder.Name
-            objShell.Run "dist\pito\pito.exe AAA\"+objFolder.Name+" "+Chr(34)+file+Chr(34),0,true
+            objShell.Run "dist\pito\pito.exe Data\"+objFolder.Name+" "+Chr(34)+file+Chr(34),0,true
         Next
     else
         logs.Value= "Creando ips para "+selects
-        objShell.Run "dist\pito\pito.exe "+Chr(34)+"AAA\"+selects+Chr(34)+" "+Chr(34)+file+Chr(34),0,true
+        objShell.Run "dist\pito\pito.exe "+Chr(34)+"Data\"+selects+Chr(34)+" "+Chr(34)+file+Chr(34),0,true
     End If
 
     dim folder: set folder = objFSO.getFolder("ips")
