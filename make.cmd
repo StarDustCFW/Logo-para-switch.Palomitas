@@ -1,13 +1,13 @@
 @echo off 
-set root="C:\Program Files (x86)\WinRAR\"
+set rar="C:\Program Files\WinRAR\Rar.exe"
 cd PK
-set ver=1.7
+set ver=2.3
 echo %ver%>V
 
 title compile pito.py
-PyInstaller pito.py -i icon.ico -y
+rem PyInstaller pito.py -i icon.ico -y
 
 title build exe file
-%root%rar a ..\Logo-para-switch.Palomitas-v%ver%.rar * AAA dist -m5 -sfx..\SFX\My.sfx -z"..\SFX\xfs.conf" -s -k 
+%rar% a ..\Logo-para-switch.Palomitas-v%ver%.rar * Data dist -m5 -sfx..\SFX\My.sfx -z"..\SFX\xfs.conf" -s -k 
 cd ..
 cmd -k
