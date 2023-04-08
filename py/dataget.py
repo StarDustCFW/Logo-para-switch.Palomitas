@@ -33,18 +33,20 @@ if __name__ == "__main__":
 
     offset = old_data.find(old_logo.tobytes())
 	
-    print (offset)
-    mec = Path(exefs_dir_out,"build_id")
+    print (build_id + " --> " + str(offset))
+    mec = Path(exefs_dir_out)
     with mec.open("w") as b:
-        b.write(build_id)
+        b.write(build_id + str(offset))
+
+    os.remove(uncomp_path)
+"""
     mec = Path(exefs_dir_out,"offset")
     with mec.open("w") as b:
         b.write(str(offset))
-
+"""
 #	int("197A80", 16)
 
 
-    os.remove(uncomp_path)
 	
 	
 """		
