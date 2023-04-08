@@ -9,7 +9,7 @@ this will replace the Nintendo switch logo with a custom one<br>
 <a href="https://discord.gg/HcCBBYa"><img src="img/image.gif" alt="Discord Server" /></a>
 
 
-##Data
+## Data
 The data files are just the BuildID(64chars) and the offset 
 
 ### Credits
