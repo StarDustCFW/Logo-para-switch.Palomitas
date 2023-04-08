@@ -8,6 +8,10 @@ this will replace the Nintendo switch logo with a custom one<br>
 
 <a href="https://discord.gg/HcCBBYa"><img src="img/image.gif" alt="Discord Server" /></a>
 
+
+##Data
+The data files are just the BuildID(64chars) and the offset 
+
 ### Credits
 * [friedkeenan](https://github.com/friedkeenan/switch-logo-patcher)
 * [D3fau4](https://github.com/D3fau4)
