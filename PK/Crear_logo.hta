@@ -22,15 +22,26 @@ On Error Resume Next
 	Set objFSO = CreateObject("Scripting.FileSystemObject")
 	Set f = objFSO.OpenTextFile("V")
 	document.title= document.title & f.ReadLine
+    f.Close
 	
-	For Each objFolder In objFSO.GetFolder("Data").Files
+    Set f = objFSO.OpenTextFile("data.txt")
+    Do Until f.AtEndOfStream
 		Set opt = document.createElement("option")
 		myselect.options.add(opt)
-		opt.text = objFolder.Name
-		opt.value = objFolder.Name
-		opt.value = objFolder.Name
-		opt.title="Hacer Solo "+objFolder.Name
-	Next
+        Textline = f.ReadLine
+		opt.text = Split(Textline, ",")(0)
+		opt.value = Split(Textline, ",")(1)+Split(Textline, ",")(2)
+		opt.title="Hacer Solo "+Split(Textline, ",")(0)
+    Loop
+    f.Close
+
+'	For Each objFolder In objFSO.GetFolder("Data").Files
+'		Set opt = document.createElement("option")
+'		myselect.options.add(opt)
+'		opt.text = objFolder.Name
+'		opt.value = objFolder.Name
+'		opt.title="Hacer Solo "+objFolder.Name
+'	Next
 End Sub
 
 Sub SelectFile
@@ -52,7 +63,8 @@ On Error Resume Next
     Dim file: file = prev.src
     file = Replace (file , "file:///" ,"")
     file = Replace (file , "%20" ," ")
-    Dim selects: selects = myselect.Value
+    Dim selects: selects = myselect.text
+    Dim datas: datas = myselect.Value
 
     'hide and show buttons
     logs.style.display= "table"
@@ -66,14 +78,23 @@ On Error Resume Next
 
     Set objFSO = CreateObject("Scripting.FileSystemObject")
 
-    If(selects = "all") Then 
-        For Each objFolder In objFSO.GetFolder("Data").Files
-            logs.Value= "Creando ips para "+objFolder.Name
-            objShell.Run "dist\pito\pito.exe Data\"+objFolder.Name+" "+Chr(34)+file+Chr(34),0,true
-        Next
+    If(datas = "all") Then 
+        Set f = objFSO.OpenTextFile("data.txt")
+        Do Until f.AtEndOfStream
+            Textline = f.ReadLine
+            version = Split(Textline, ",")(0)
+            dataoff = Split(Textline, ",")(1)+Split(Textline, ",")(2)
+            logs.Value= "Creando ips para "+version
+            objShell.Run "dist\pito\pito.exe "+dataoff+" "+Chr(34)+file+Chr(34),0,true
+        Loop
+        f.Close
+'        For Each objFolder In objFSO.GetFolder("Data").Files
+'            logs.Value= "Creando ips para "+objFolder.Name
+'            objShell.Run "dist\pito\pito.exe Data\"+objFolder.Name+" "+Chr(34)+file+Chr(34),0,true
+'        Next
     else
         logs.Value= "Creando ips para "+selects
-        objShell.Run "dist\pito\pito.exe "+Chr(34)+"Data\"+selects+Chr(34)+" "+Chr(34)+file+Chr(34),0,true
+        objShell.Run "dist\pito\pito.exe "+datas+" "+Chr(34)+file+Chr(34),0,true
     End If
 
     dim folder: set folder = objFSO.getFolder("ips")

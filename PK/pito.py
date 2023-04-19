@@ -15,7 +15,7 @@ if __name__ == "__main__":
         print("Invalid arguments 3")
         sys.exit(1)
 
-    exefs_data = Path(sys.argv[1])
+#    exefs_data = Path(sys.argv[1])
     
 
     new_logo = Image.open(sys.argv[2])
@@ -41,10 +41,10 @@ if __name__ == "__main__":
     with build_id_file.open("r") as f:
         build_id = f.read()
 
-    """
     with exefs_data.open("r") as f:
         Datts = f.read()
-
+    """
+    Datts = sys.argv[1]
     build_id = Datts[0:64]
     offset = int(Datts[64:-1]+Datts[-1])
 
