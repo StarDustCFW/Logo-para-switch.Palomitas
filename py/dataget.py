@@ -15,7 +15,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     exefs_dir = Path(sys.argv[1])
-    exefs_dir_out = Path("out",sys.argv[1])
+    basename = os.path.basename(sys.argv[1])
+    exefs_dir_out = Path("data.txt")
     if not exefs_dir.is_dir():
         print("Invalid arguments")
         sys.exit(1)
@@ -35,8 +36,8 @@ if __name__ == "__main__":
 	
     print (build_id + " --> " + str(offset))
     mec = Path(exefs_dir_out)
-    with mec.open("w") as b:
-        b.write(build_id + str(offset))
+    with mec.open("a+") as b:
+        b.write(basename + ',' + build_id + ',' + str(offset) + '\n')
 
     os.remove(uncomp_path)
 """
