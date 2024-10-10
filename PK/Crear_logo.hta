@@ -58,6 +58,13 @@ Sub SelectFile
     End If
 End Sub
 
+Sub openFolder
+    Set objShell = CreateObject("Wscript.Shell")
+    objShell.Run "cmd /c mkdir ips",0,true
+    objShell.Run "cmd /c explorer.exe ips",0,true
+    logs.style.display= "none"
+End Sub
+
 Sub Process
 On Error Resume Next
     'Get file path from INPUT
@@ -70,6 +77,7 @@ On Error Resume Next
     'hide and show buttons
     logs.style.display= "table"
     comenz.style.display= "none"
+    openz.style.display= "none"
     brow.style.display= "none"
     myselect.style.display= "none"
     
@@ -92,14 +100,15 @@ On Error Resume Next
     else
         objShell.Run "cmd /c mkdir ips\atmosphere\exefs_patches\logo",0,true
         objShell.Run "cmd /c move /y ips\*.ips ips\atmosphere\exefs_patches\logo\",0,true    
-        logs.Value= "Terminado"
-        objShell.PopUp "Termine con: "& file &", revisa carpeta con los archivos IPS",8,"Terminado",64
-        objShell.Run "cmd /c explorer ips",0,true
+        logs.Value= "Terminado , usa Abrir vv"
+        'objShell.PopUp "Termine con: "& file &", revisa carpeta con los archivos IPS",8,"Terminado",64
+        'objShell.Run "cmd /c explorer ips",0,true
     End If
     
     'hide and show buttons
-    logs.style.display= "none"
+    'logs.style.display= "none"
     comenz.style.display= "table"
+    openz.style.display= "table"
     brow.style.display= "table"
     myselect.style.display= "table"
 End Sub
@@ -109,14 +118,18 @@ End Sub
 <title>Logo para Switch -.- </title>
 <p title="Esta es una Herramienta para cambiar el logo a la Nintendo Switch" style="font-size: 16px;background-color: #a5cbf0">
 &nbsp;PNG To IPS Logo Creator 1.0.0-.-<span id="latest">???</span><br>
-&nbsp;&nbsp;&nbsp;"PNG" "308x350" "RGBA"<br>
+&nbsp;PNG: "308x350" "RGBA"<br>
 </p>
-<input type="text" name="logs" style="display: none" size="30">
+<input type="text" name="logs" style="display: none;position:absolute;top:60;" size="30">
 <!-- Posision Fija -->
 <img name="prev" onmouseenter="prev.style.border='2px solid #0994ed'" onmouseleave="prev.style.border='2px solid white'" title="Cambiar Icono" src="temp.png" alt="none" style="position:absolute;right:10;top:15; width:80px;border: 2px solid white;" onClick="SelectFile">
 <select title="Firmware Objetivo" style="font-size: 16px;border: none; position:absolute;right:10;top:110; width:80px; height:80px;border: 2px solid white;" name="myselect"><option  title="Make ALL" value="all">Todos</option></select>
+
 <input title="Crear LOGO" onmouseenter="comenz.style.border='2px solid #0994ed'" onmouseleave="comenz.style.border='2px solid white'" style="background-color: #056aab; position:absolute;left:10;bottom:10; border: 2px solid white; padding: 10px 15px;	color: white;	font-size: 14px;" type="button" name="comenz" onClick="Process" value="Convertir">
-<p id="Credit" title="Los Culpables" style="font-size: 16px;position:absolute;right:10;bottom:5;" onmouseenter="Credit.style.background='#a5cbf0'" onmouseleave="Credit.style.background=''">By D3fau4 & Kronos2308</p>
+
+<input title="Abrir Carpeta" onmouseenter="openz.style.border='2px solid #0994ed'" onmouseleave="openz.style.border='2px solid white'" style="background-color: #068aab; position:absolute;left:143;bottom:10; border: 2px solid white; padding: 10px 5px;	color: white;	font-size: 14px;" type="button" name="openz" onClick="openFolder" value="Abrir">
+
+<p id="Credit" title="Los Culpables" style="font-size: 16px;position:absolute;right:10;bottom:3;" onmouseenter="Credit.style.background='#a5cbf0'" onmouseleave="Credit.style.background=''">By D3fau4 & Kronos2308</p>
 
 <OBJECT id=Dlg classid="CLSID:3050F4E1-98B5-11CF-BB82-00AA00BDCE0B" width=0 height=0>
 </body>
