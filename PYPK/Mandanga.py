@@ -19,7 +19,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'): data_dir = getatt
 
 
 
-def single(base_patch, Datts):
+def single(base_patch, Datts,out):
     # Get Offset And build ID
     build_id = Datts[:64]
     offset = int(Datts[64:-1] + Datts[-1])
@@ -32,27 +32,27 @@ def single(base_patch, Datts):
 
     for r in base_patch.records:
         tmp_p.add_record(r.offset + offset, r.content, r.rle_size)
-    if not os.path.exists("ips"): os.mkdir(Path("ips"))
+    if not os.path.exists(out): os.mkdir(Path(out))
     # Build the patch
-    patch_path = Path("ips", f"{build_id}.ips")
+    patch_path = Path(out, f"{build_id}.ips")
     # Save the patch
     with patch_path.open("w+b") as f:
         f.write(bytes(tmp_p))
 
 
-def multiple(base_patch, Datts):
+def multiple(base_patch, Datts,out):
     print(base_patch)
     print(Datts)
 
     for line in Datts:
         print(Datts[line])
-        single(base_patch, Datts[line])
+        single(base_patch, Datts[line],out)
 
 
 class MyApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Logo para Switch -.- v3.1")
+        self.title("Logo para Switch -.- v3.2")
         self.geometry("425x170")
         self.configure(background="#60b6eb")
         file_path = os.path.join(data_dir, 'icon.ico')
@@ -77,6 +77,9 @@ class MyApp(tk.Tk):
         # Botón de conversión
         self.convert_button = tk.Button(self, text="Convertir", bg="#056aab", fg="white", width=15, height=2, command=self.process, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
         self.convert_button.place(x=10, y=100)
+
+        self.convert_button = tk.Button(self, text="Abrir", bg="#0994ed", fg="white", width=5, height=2, command=self.openFolder, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
+        self.convert_button.place(x=145, y=100)
 
 
         ep = 55;
@@ -129,6 +132,9 @@ class MyApp(tk.Tk):
         if self.file_path:
             self.load_image()
 
+    def openFolder(self):
+        os.startfile("ips")
+        self.logs.config(text="")
     def process(self):
         try:
             file = self.file_path.replace("file:///", "").replace("%20", " ")
@@ -148,21 +154,22 @@ class MyApp(tk.Tk):
             
             base_patch = ips.Patch.create(old_logo.tobytes(), new_logo.tobytes())
             
-
+            out="ips\\atmosphere\\exefs_patches\\logo"
+            os.makedirs(out, exist_ok=True)
             if datas == "Todos":
-                multiple(base_patch, self.list)
+                multiple(base_patch, self.list,out)
             else:
-                single(base_patch, self.list[datas])
+                single(base_patch, self.list[datas],out)
             
-            if not os.listdir("ips"):
+            if not os.listdir(out):
                 messagebox.showerror("Fallido", f"Ha habido un error convirtiendo:\n{file}")
             else:
-                os.makedirs("ips\\atmosphere\\exefs_patches\\logo", exist_ok=True)
-                subprocess.run(["cmd", "/c", "move /y ips\\*.ips ips\\atmosphere\\exefs_patches\\logo\\"], check=True)
-                self.logs.config(text="Terminado")
-                messagebox.showinfo("Terminado", f"Terminé con: {file}, revisa carpeta con los archivos IPS")
-                os.startfile("ips")
-                self.logs.config(text="")
+                
+                #subprocess.run(["cmd", "/c", "move /y ips\\*.ips ips\\atmosphere\\exefs_patches\\logo\\"], check=False)
+                self.logs.config(text="Terminado, Usa Abrir vv")
+                #messagebox.showinfo("Terminado", f"Terminé con: {file}, revisa carpeta con los archivos IPS")
+                #os.startfile("ips")
+                #self.logs.config(text="")
 
         except Exception as e:
             messagebox.showerror("Error", f"Error durante el proceso: {e}")
