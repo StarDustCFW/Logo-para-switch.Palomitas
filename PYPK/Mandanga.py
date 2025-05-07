@@ -77,22 +77,19 @@ class MyApp(tk.Tk):
         # Botón de conversión
         self.convert_button = tk.Button(self, text="Convertir", bg="#056aab", fg="white", width=15, height=2, command=self.process, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
         self.convert_button.place(x=10, y=100)
-        self.convert_button.bind("<Enter>", lambda e: self.convert_button.config(bg="#035a91"))  # Hover
-        self.convert_button.bind("<Leave>", lambda e: self.convert_button.config(bg="#056aab"))  # Normal
+        self.add_hover_effect(self.convert_button, "#056aab", "#035a91")
 
         # Botón de Abrir
         self.open_button  = tk.Button(self, text="Abrir", bg="#0994ed", fg="white", width=5, height=2, command=self.openFolder, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
         self.open_button .place(x=145, y=100)
-        self.open_button.bind("<Enter>", lambda e: self.open_button.config(bg="#077acc"))  # Hover
-        self.open_button.bind("<Leave>", lambda e: self.open_button.config(bg="#0994ed"))  # Normal
+        self.add_hover_effect(self.open_button, "#0994ed", "#077acc")
 
         ep = 55;
         # Imagen de vista previa
         self.prev = tk.Label(self, bg="#fff", width=105, height=105)
         self.prev.place(x=250+ep, y=10)
         self.prev.bind("<Button-1>", self.select_file)
-        self.prev.bind("<Enter>", lambda e: self.prev.config(bg="#077acc"))  # Hover
-        self.prev.bind("<Leave>", lambda e: self.prev.config(bg="#fff"))  # Normal
+        self.add_hover_effect(self.prev, "#fff", "#077acc")
 
         # Ruta inicial de la imagen
         self.file_path = os.path.join(data_dir, 'temp.png')
@@ -109,6 +106,10 @@ class MyApp(tk.Tk):
         self.credit = tk.Label(self, text="By D3fau4 & Kronos2308", font=("Times New Roman", 10), bg="#60b6eb")
         self.credit.place(x=175+ep, y=145)
     
+    def add_hover_effect(self,widget, normal_color, hover_color):
+            widget.bind("<Enter>", lambda e: widget.config(bg=hover_color))
+            widget.bind("<Leave>", lambda e: widget.config(bg=normal_color))
+
 
     def load_image(self):
         try:
