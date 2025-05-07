@@ -52,7 +52,7 @@ def multiple(base_patch, Datts,out):
 class MyApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Logo para Switch -.- v3.2")
+        self.title("Logo para Switch -.- v3.3")
         self.geometry("425x170")
         self.configure(background="#60b6eb")
         file_path = os.path.join(data_dir, 'icon.ico')
@@ -65,7 +65,7 @@ class MyApp(tk.Tk):
         self.list = {}
 
         # Etiqueta de información
-        self.label = tk.Label(self, text="PNG To IPS Logo Creator 1.0.0 -.-19.X.X\n  \"PNG\" \"308x350\" \"RGBA\"",
+        self.label = tk.Label(self, text="PNG To IPS Logo Creator 1.0.0 -.- 20.X.X\n  \"PNG\" \"308x350\" \"RGBA\"",
                               font=("Times New Roman", 10), bg="#a5cbf0")
         self.label.place(x=10, y=10)
 
@@ -77,16 +77,22 @@ class MyApp(tk.Tk):
         # Botón de conversión
         self.convert_button = tk.Button(self, text="Convertir", bg="#056aab", fg="white", width=15, height=2, command=self.process, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
         self.convert_button.place(x=10, y=100)
+        self.convert_button.bind("<Enter>", lambda e: self.convert_button.config(bg="#035a91"))  # Hover
+        self.convert_button.bind("<Leave>", lambda e: self.convert_button.config(bg="#056aab"))  # Normal
 
-        self.convert_button = tk.Button(self, text="Abrir", bg="#0994ed", fg="white", width=5, height=2, command=self.openFolder, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
-        self.convert_button.place(x=145, y=100)
-
+        # Botón de Abrir
+        self.open_button  = tk.Button(self, text="Abrir", bg="#0994ed", fg="white", width=5, height=2, command=self.openFolder, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
+        self.open_button .place(x=145, y=100)
+        self.open_button.bind("<Enter>", lambda e: self.open_button.config(bg="#077acc"))  # Hover
+        self.open_button.bind("<Leave>", lambda e: self.open_button.config(bg="#0994ed"))  # Normal
 
         ep = 55;
         # Imagen de vista previa
         self.prev = tk.Label(self, bg="#fff", width=105, height=105)
         self.prev.place(x=250+ep, y=10)
         self.prev.bind("<Button-1>", self.select_file)
+        self.prev.bind("<Enter>", lambda e: self.prev.config(bg="#077acc"))  # Hover
+        self.prev.bind("<Leave>", lambda e: self.prev.config(bg="#fff"))  # Normal
 
         # Ruta inicial de la imagen
         self.file_path = os.path.join(data_dir, 'temp.png')
