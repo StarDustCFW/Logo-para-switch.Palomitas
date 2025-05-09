@@ -1,14 +1,12 @@
 
 *.exe
-PK/AAA/*
-PK/build/*
-PK/dist/*
-PK/__pycache__/*
 *.spec
 *.rar
 *.cmd
 main
 main.npdm
 prod.keys
-SandBox/*
-PYPK/build/*
+*/SandBox/*
+*/build/*
+*/dist/*
+*/__pycache__/*
