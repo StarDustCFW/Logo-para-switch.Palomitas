@@ -9,6 +9,6 @@ PK/__pycache__/*
 *.cmd
 main
 main.npdm
-py/-.-/prod.keys
+prod.keys
 SandBox/*
 PYPK/build/*
