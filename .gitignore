@@ -9,4 +9,6 @@ prod.keys
 */SandBox/*
 */build/*
 */dist/*
+*build/*
+*dist/*
 */__pycache__/*
