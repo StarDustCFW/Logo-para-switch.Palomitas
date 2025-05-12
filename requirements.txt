@@ -1,0 +1,3 @@
+Pillow
+ips-py
+pyinstaller

@@ -52,7 +52,7 @@ def multiple(base_patch, Datts,out):
 class MyApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Logo para Switch -.- v3.3")
+        self.title("Logo para Switch -.- v3.4")
         self.geometry("425x170")
         self.configure(background="#60b6eb")
         file_path = os.path.join(data_dir, 'icon.ico')
@@ -63,10 +63,18 @@ class MyApp(tk.Tk):
 
         # Diccionario para las opciones
         self.list = {}
+        
+        # Combobox (menú desplegable)
+        self.myselect = ttk.Combobox(self, state="readonly",width=7)
+        self.myselect.place(x=330, y=120)
+        self.myselect.bind("<<ComboboxSelected>>", self.on_select)
+        self.load_data()#Cargar data.txt
+        latest = self.myselect['values'][-1]
 
         # Etiqueta de información
-        self.label = tk.Label(self, text="PNG To IPS Logo Creator 1.0.0 -.- 20.X.X\n  \"PNG\" \"308x350\" \"RGBA\"",
+        self.label = tk.Label(self, text=f"PNG To IPS Logo Creator 1.0.0 -.- {latest}\n  \"PNG\" \"308x350\" \"RGBA\"",
                               font=("Times New Roman", 10), bg="#a5cbf0")
+        ToolTip(self.label, "Esta es una Herramienta para cambiar el logo a la Nintendo Switch")
         self.label.place(x=10, y=10)
 
         # Campo de registro
@@ -84,27 +92,20 @@ class MyApp(tk.Tk):
         self.open_button .place(x=145, y=100)
         self.add_hover_effect(self.open_button, "#0994ed", "#077acc")
 
-        ep = 55;
         # Imagen de vista previa
         self.prev = tk.Label(self, bg="#fff", width=105, height=105)
-        self.prev.place(x=250+ep, y=10)
+        self.prev.place(x=305, y=10)
         self.prev.bind("<Button-1>", self.select_file)
         self.add_hover_effect(self.prev, "#fff", "#077acc")
 
         # Ruta inicial de la imagen
-        self.file_path = os.path.join(data_dir, 'temp.png')
-        self.load_image()
-        
-        # Combobox (menú desplegable)
-        self.myselect = ttk.Combobox(self, state="readonly",width=7)
-        self.myselect.place(x=276+ep, y=120)
-        self.myselect.bind("<<ComboboxSelected>>", self.on_select)
-        self.load_data()
-
+        self.default_img()
 
         # Etiqueta de créditos
         self.credit = tk.Label(self, text="By D3fau4 & Kronos2308", font=("Times New Roman", 10), bg="#60b6eb")
-        self.credit.place(x=175+ep, y=145)
+        ToolTip(self.credit, "Los Culpables")
+        self.credit.place(x=230, y=145)
+
     
     def add_hover_effect(self,widget, normal_color, hover_color):
             widget.bind("<Enter>", lambda e: widget.config(bg=hover_color))
@@ -114,9 +115,18 @@ class MyApp(tk.Tk):
     def load_image(self):
         try:
             img = Image.open(self.file_path)
+            
+            # Verificar dimensiones
+            if img.size != (308, 350):
+                self.logs.config(text="La imagen debe ser de 308x350 píxeles.")
+                #messagebox.showerror("Tamaño incorrecto", "La imagen debe ser de 308x350 píxeles.")
+                self.default_img()
+                return  # o raise Exception o lo que quieras hacer en caso de error
+
             img = img.resize((105, 105), Image.LANCZOS)
             self.img = ImageTk.PhotoImage(img)
             self.prev.config(image=self.img, text="")  # Limpia el texto y muestra la imagen
+            
         except Exception as e:
             print(f"Error loading image: {e}")
 
@@ -135,9 +145,13 @@ class MyApp(tk.Tk):
             print(f"Error loading data: {e}")
 
     def select_file(self, event=None):
-        self.file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png"), ("All files", "*.*")])
-        if self.file_path:
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png"), ("All files", "*.*")])
+        if file_path:
+            self.file_path = file_path
             self.load_image()
+    def default_img(self):
+        self.file_path = os.path.join(data_dir, 'temp.png')
+        self.load_image()
 
     def openFolder(self):
         os.startfile("ips")
@@ -171,12 +185,7 @@ class MyApp(tk.Tk):
             if not os.listdir(out):
                 messagebox.showerror("Fallido", f"Ha habido un error convirtiendo:\n{file}")
             else:
-                
-                #subprocess.run(["cmd", "/c", "move /y ips\\*.ips ips\\atmosphere\\exefs_patches\\logo\\"], check=False)
-                self.logs.config(text="Terminado, Usa Abrir vv")
-                #messagebox.showinfo("Terminado", f"Terminé con: {file}, revisa carpeta con los archivos IPS")
-                #os.startfile("ips")
-                #self.logs.config(text="")
+                self.logs.config(text="Terminado, Usa Abrir 🔽🔽")
 
         except Exception as e:
             messagebox.showerror("Error", f"Error durante el proceso: {e}")
@@ -184,6 +193,36 @@ class MyApp(tk.Tk):
     def on_select(self, event):
         selected = self.myselect.get()
         print(f"Seleccionado: {selected}")
+
+class ToolTip:
+    def __init__(self, widget, text):
+        self.widget = widget
+        self.text = text
+        self.tip_window = None
+        widget.bind("<Enter>", self.show_tip)
+        widget.bind("<Leave>", self.hide_tip)
+
+    def show_tip(self, event=None):
+        if self.tip_window or not self.text:
+            return
+        x, y, _cx, cy = self.widget.bbox("insert")
+        x += self.widget.winfo_rootx() + 25
+        y += self.widget.winfo_rooty() + 20
+        self.tip_window = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)  # Sin bordes ni título
+        tw.wm_geometry(f"+{x}+{y}")
+        label = tk.Label(tw, text=self.text, justify='left',
+                         background="#ffffe0", relief='solid', borderwidth=1,
+                         font=("Times New Roman", 9))
+        label.pack(ipadx=1)
+
+    def hide_tip(self, event=None):
+        tw = self.tip_window
+        self.tip_window = None
+        if tw:
+            tw.destroy()
+
+
 
 if __name__ == "__main__":
     app = MyApp()
