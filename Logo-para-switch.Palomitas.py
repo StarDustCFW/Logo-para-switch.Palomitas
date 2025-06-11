@@ -11,7 +11,8 @@ from ips_util import Patch
 import ips
 from ctypes import windll
 windll.shcore.SetProcessDpiAwareness(1)
-import sys
+import sys,tempfile
+import shutil
 
 data_dir = "";
 # 
@@ -52,7 +53,7 @@ def multiple(base_patch, Datts,out):
 class MyApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Logo para Switch -.- v3.4")
+        self.title("Logo para Switch -.- v3.5")
         self.geometry("425x170")
         self.configure(background="#60b6eb")
         file_path = os.path.join(data_dir, 'icon.ico')
@@ -60,6 +61,12 @@ class MyApp(tk.Tk):
         # Evitar que la ventana se pueda redimensionar
         self.resizable(False, False)
         # Evitar que la ventana se pueda maximizar
+        # capturar cierre
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
+        
+        # Ruta base del directorio temporal 
+        temp_dir = tempfile.gettempdir()
+        self.ips_folder = os.path.join(temp_dir, "ips")
 
         # Diccionario para las opciones
         self.list = {}
@@ -88,9 +95,24 @@ class MyApp(tk.Tk):
         self.add_hover_effect(self.convert_button, "#056aab", "#035a91")
 
         # Botón de Abrir
-        self.open_button  = tk.Button(self, text="Abrir", bg="#0994ed", fg="white", width=5, height=2, command=self.openFolder, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
-        self.open_button .place(x=145, y=100)
-        self.add_hover_effect(self.open_button, "#0994ed", "#077acc")
+        # self.open_button  = tk.Button(self, text="Abrir", bg="#0994ed", fg="white", width=5, height=2, command=self.openFolder, bd=2,highlightcolor="white", highlightbackground="white", relief=tk.FLAT)
+        # self.open_button .place(x=145, y=100)
+        # self.add_hover_effect(self.open_button, "#0994ed", "#077acc")
+
+
+        img_path = os.path.join(data_dir, 'open-folder.png')  # o la ruta que tengas
+        img = Image.open(img_path)
+        img = img.resize((40, 40), Image.Resampling.LANCZOS)  # redimensiona a tamaño deseado
+        self.open_img = ImageTk.PhotoImage(img)  # guarda la referencia en self para que no se borre
+
+        self.open_button = tk.Button(self, image=self.open_img, bg="#0954ad", width=55, height=49,
+                                     command=self.openFolder, bd=2, highlightcolor="white",
+                                     highlightbackground="white", relief=tk.FLAT)
+
+        self.open_button.place(x=145, y=100)
+        self.add_hover_effect(self.open_button, "#0954ad", "#077acc")
+
+
 
         # Imagen de vista previa
         self.prev = tk.Label(self, bg="#fff", width=105, height=105)
@@ -106,7 +128,18 @@ class MyApp(tk.Tk):
         ToolTip(self.credit, "Los Culpables")
         self.credit.place(x=230, y=145)
 
-    
+    def on_close(self):
+        # Aquí borramos la carpeta temporal si existe
+        try:
+            if os.path.exists(self.ips_folder):
+                shutil.rmtree(self.ips_folder, ignore_errors=True)
+                print(f"Carpeta temporal {self.ips_folder} borrada.")
+        except Exception as e:
+            print(f"Error borrando carpeta temporal: {e}")
+        
+        # Finalmente cerrar la ventana y terminar la app
+        self.destroy()
+        
     def add_hover_effect(self,widget, normal_color, hover_color):
             widget.bind("<Enter>", lambda e: widget.config(bg=hover_color))
             widget.bind("<Leave>", lambda e: widget.config(bg=normal_color))
@@ -154,7 +187,7 @@ class MyApp(tk.Tk):
         self.load_image()
 
     def openFolder(self):
-        os.startfile("ips")
+        os.startfile(self.ips_folder)
         self.logs.config(text="")
     def process(self):
         try:
@@ -175,7 +208,7 @@ class MyApp(tk.Tk):
             
             base_patch = ips.Patch.create(old_logo.tobytes(), new_logo.tobytes())
             
-            out="ips\\atmosphere\\exefs_patches\\logo"
+            out = os.path.join(self.ips_folder, "atmosphere", "exefs_patches", "logo")
             os.makedirs(out, exist_ok=True)
             if datas == "Todos":
                 multiple(base_patch, self.list,out)
@@ -186,7 +219,7 @@ class MyApp(tk.Tk):
                 messagebox.showerror("Fallido", f"Ha habido un error convirtiendo:\n{file}")
             else:
                 self.logs.config(text="Terminado, Usa Abrir 🔽🔽")
-
+            os.startfile(self.ips_folder)
         except Exception as e:
             messagebox.showerror("Error", f"Error durante el proceso: {e}")
 
