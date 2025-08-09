@@ -35,6 +35,7 @@ if __name__ == "__main__":
     offset = old_data.find(old_logo.tobytes())
 	
     print (build_id + " --> " + str(offset))
+    print (basename + ',' + build_id + ',' + str(offset) + '\n')
     mec = Path(exefs_dir_out)
     with mec.open("a+") as b:
         b.write(basename + ',' + build_id + ',' + str(offset) + '\n')

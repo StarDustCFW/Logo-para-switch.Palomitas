@@ -42,7 +42,8 @@ title !a! %1
 if !a! equ 010000000000002d (
     if "%c%" neq "Meta" (
         echo %1
-        -.-\hactool.exe -x -k -.-\prod.keys --exefsdir="%~n2" "%1"
+        -.-\hactool.exe -x -k -.-\prod.keys --exefsdir="Data\%~n2" "%1"
+        py dataget.py "Data\%~n2"
         goto:end
     )
 )
