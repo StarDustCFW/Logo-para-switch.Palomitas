@@ -53,7 +53,7 @@ def multiple(base_patch, Datts,out):
 class MyApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Logo para Switch -.- v3.5")
+        self.title("Logo para Switch -.- v3.6")
         self.geometry("425x170")
         self.configure(background="#60b6eb")
         file_path = os.path.join(data_dir, 'icon.ico')
