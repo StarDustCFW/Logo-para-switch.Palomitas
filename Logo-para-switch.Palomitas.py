@@ -9,8 +9,12 @@ import sys
 from pathlib import Path
 from ips_util import Patch
 import ips
-from ctypes import windll
-windll.shcore.SetProcessDpiAwareness(1)
+import platform
+
+if platform.system() == "Windows":
+    from ctypes import windll
+    windll.shcore.SetProcessDpiAwareness(1)
+
 import sys,tempfile
 import shutil
 
@@ -57,7 +61,14 @@ class MyApp(tk.Tk):
         self.geometry("425x170")
         self.configure(background="#60b6eb")
         file_path = os.path.join(data_dir, 'icon.ico')
-        self.iconbitmap(file_path) 
+        if platform.system() == "Windows":
+            self.iconbitmap(file_path)
+        else:
+            icon = Image.open(file_path)
+            icon = ImageTk.PhotoImage(icon)
+            self.iconphoto(True, icon)
+            self._icon = icon
+            self.tk.call("tk", "scaling", 0.1)
         # Evitar que la ventana se pueda redimensionar
         self.resizable(False, False)
         # Evitar que la ventana se pueda maximizar
@@ -187,7 +198,12 @@ class MyApp(tk.Tk):
         self.load_image()
 
     def openFolder(self):
-        os.startfile(self.ips_folder)
+        if platform.system() == "Windows":
+            os.startfile(self.ips_folder)
+        elif platform.system() == "Darwin":
+            subprocess.Popen(["open", self.ips_folder])
+        else:
+            subprocess.Popen(["xdg-open", self.ips_folder])
         self.logs.config(text="")
     def process(self):
         try:
@@ -219,7 +235,8 @@ class MyApp(tk.Tk):
                 messagebox.showerror("Fallido", f"Ha habido un error convirtiendo:\n{file}")
             else:
                 self.logs.config(text="Terminado, Usa Abrir 🔽🔽")
-            os.startfile(self.ips_folder)
+                self.openFolder()
+            #os.startfile(self.ips_folder)
         except Exception as e:
             messagebox.showerror("Error", f"Error durante el proceso: {e}")
 
