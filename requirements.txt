@@ -1,3 +1,5 @@
 Pillow
 ips-py
 pyinstaller
+Thinker
+ips_util
