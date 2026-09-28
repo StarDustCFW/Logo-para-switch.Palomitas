@@ -5,6 +5,7 @@ import os
 import subprocess
 from PIL import Image
 from pathlib import Path
+import platform
 
 def exec_cmd(cmd):
     return subprocess.check_output(cmd.split()).decode()
@@ -20,13 +21,17 @@ if __name__ == "__main__":
     if not exefs_dir.is_dir():
         print("Invalid arguments")
         sys.exit(1)
+
     
     old_logo = Image.open("logo.png")
     old_logo = old_logo.convert("RGBA")
 
     uncomp_path = Path(exefs_dir, "main_unc")
+    hactool = "./-.-/hactool.exe"
+    if platform.system() == "Linux":
+        hactool = "./-.-/hactool.exe"
 
-    out = exec_cmd(f"hactool -t nso {Path(exefs_dir, 'main')} --uncompressed {uncomp_path}")
+    out = exec_cmd(f"{hactool} -t nso {Path(exefs_dir, 'main')} --uncompressed {uncomp_path}")
     build_id = out.split("Build Id:", 1)[1].split("\n", 1)[0].strip()
 
     with uncomp_path.open("rb") as f:
