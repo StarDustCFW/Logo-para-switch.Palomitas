@@ -13,3 +13,4 @@ SandBox/*
 *build*
 *dist*
 */__pycache__/*
+*.kate-swp
