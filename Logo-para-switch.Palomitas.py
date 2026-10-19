@@ -24,12 +24,11 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'): data_dir = getatt
 
 
 
-def single(base_patch, Datts,out):
+def single(base_patch, value,out):
     # Get Offset And build ID
-    build_id = Datts[:64]
-    offset = int(Datts[64:-1] + Datts[-1])
+    build_id, offset = value
 
-    print(Datts)
+    print(value)
     print(build_id)
     print(offset)
     
@@ -49,9 +48,9 @@ def multiple(base_patch, Datts,out):
     print(base_patch)
     print(Datts)
 
-    for line in Datts:
-        print(Datts[line])
-        single(base_patch, Datts[line],out)
+    for value in Datts.values():
+        print(value)
+        single(base_patch, value, out)
 
 
 class MyApp(tk.Tk):
@@ -181,7 +180,7 @@ class MyApp(tk.Tk):
             with open(file_path, "r") as f:
                 for line in f:
                     text, value1, value2 = line.strip().split(",")
-                    self.list[text] = value1 + value2
+                    self.list[text] = value1 , int(value2)
                     options.append(text)
             self.myselect['values'] = options
             self.myselect.current(0)  # Set default value to "Todos"
