@@ -119,7 +119,13 @@ class MyApp(tk.Tk):
                                      command=self.openFolder, bd=2, highlightcolor="white",
                                      highlightbackground="white", relief=tk.FLAT)
 
-        self.open_button.place(x=145, y=100)
+        if platform.system() == "Linux":
+            self.open_button.config(width=50, height=46)
+
+            self.open_button.place(x=172, y=100)
+        else:
+            self.open_button.place(x=145, y=100)
+
         self.add_hover_effect(self.open_button, "#0954ad", "#077acc")
 
 
