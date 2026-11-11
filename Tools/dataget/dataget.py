@@ -29,7 +29,7 @@ if __name__ == "__main__":
     uncomp_path = Path(exefs_dir, "main_unc")
     hactool = "./-.-/hactool.exe"
     if platform.system() == "Linux":
-        hactool = "./-.-/hactool.exe"
+        hactool = "./-.-/hactool"
 
     out = exec_cmd(f"{hactool} -t nso {Path(exefs_dir, 'main')} --uncompressed {uncomp_path}")
     build_id = out.split("Build Id:", 1)[1].split("\n", 1)[0].strip()
